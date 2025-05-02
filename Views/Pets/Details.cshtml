@@ -1,0 +1,26 @@
+@model SistemaAdopcionMascotas.Models.Pet
+
+<h1>Detalles de la Mascota</h1>
+
+<div>
+    <h4>Mascota</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">Nombre</dt>
+        <dd class = "col-sm-10">@Model.Nombre</dd>
+
+        <dt class = "col-sm-2">Edad</dt>
+        <dd class = "col-sm-10">@Model.Edad</dd>
+
+        <dt class = "col-sm-2">Tipo</dt>
+        <dd class = "col-sm-10">@Model.Tipo</dd>
+
+        <dt class = "col-sm-2">Adoptada</dt>
+        <dd class = "col-sm-10">@((Model.Adoptada) ? "Sí" : "No")</dd>
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="Index">Volver a la lista</a>
+</div>
