@@ -1,23 +1,22 @@
-# Usa la imagen oficial de .NET SDK para compilar
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+# Imagen base para construir
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app
 
-# Copia los archivos de tu proyecto
-COPY . ./
-
-# Restaura las dependencias
+# Copiar archivos de proyecto y restaurar dependencias
+COPY *.csproj ./
 RUN dotnet restore
 
-# Publica el proyecto
+# Copiar el resto del código y compilar
+COPY . ./
 RUN dotnet publish -c Release -o out
 
-# Usa la imagen runtime para correr la app
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+# Imagen base para runtime
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build /app/out .
 
-# Expone el puerto 80
+# Puerto que expone la aplicación
 EXPOSE 80
 
-# Comando para iniciar la app
+# Comando para arrancar la app
 ENTRYPOINT ["dotnet", "SistemaAdopcionMascotas.dll"]
