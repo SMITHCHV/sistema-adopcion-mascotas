@@ -1,12 +1,24 @@
-using Microsoft.EntityFrameworkCore; // <- Este using es necesario para que UseNpgsql funcione
+using Microsoft.EntityFrameworkCore; 
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddDataAnnotationsLocalization();
 
 builder.Services.AddDbContext<SistemaAdopcionMascotas.Models.AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var supportedCultures = new[] { new CultureInfo("es-ES") };
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture("es-ES");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
 
 var app = builder.Build();
 
@@ -18,9 +30,11 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles(); // <- necesario para servir archivos estáticos
+app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseRequestLocalization(); // <- importante
 
 app.UseAuthorization();
 

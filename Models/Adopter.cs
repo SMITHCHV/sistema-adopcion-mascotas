@@ -7,12 +7,13 @@ namespace SistemaAdopcionMascotas.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El nombre del adoptante es obligatorio.")]
         public string? Nombre { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El correo electrónico es obligatorio.")]
+        [EmailAddress(ErrorMessage = "El correo electrónico no es válido.")]
         public string? Email { get; set; }
 
-        public ICollection<Adoption> Adoptions { get; set; } = [];
+        public ICollection<Adoption>? Adoptions { get; set; }
     }
 }
