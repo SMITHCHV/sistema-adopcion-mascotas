@@ -1,28 +1,36 @@
 @model SistemaAdopcionMascotas.Models.Pet
 
-<h1>Registrar Mascota</h1>
+<h1>Registrar Nueva Mascota</h1>
 
-<form asp-action="Create">
+<form asp-action="Create" method="post">
     <div class="form-group">
         <label asp-for="Nombre"></label>
-        <input asp-for="Nombre" class="form-control" />
+        <input asp-for="Nombre" class="form-control" required />
         <span asp-validation-for="Nombre" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="Edad"></label>
-        <input asp-for="Edad" class="form-control" />
+        <input asp-for="Edad" type="number" min="0" class="form-control" required />
         <span asp-validation-for="Edad" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="Tipo"></label>
-        <input asp-for="Tipo" class="form-control" />
+        <input asp-for="Tipo" class="form-control" required />
         <span asp-validation-for="Tipo" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="Adoptada"></label>
-        <input asp-for="Adoptada" type="checkbox" />
+        <label>Estado de adopción</label>
+        <select asp-for="Adoptada" class="form-control" required>
+            <option value="false">Disponible</option>
+            <option value="true">Adoptada</option>
+        </select>
+        <span asp-validation-for="Adoptada" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Guardar</button>
+
+    <button type="submit" class="btn btn-primary">Registrar</button>
 </form>
 
 <div>
