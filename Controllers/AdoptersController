@@ -1,0 +1,43 @@
+using Microsoft.AspNetCore.Mvc;
+using SistemaAdopcionMascotas.Models;
+using System.Linq;
+
+namespace SistemaAdopcionMascotas.Controllers
+{
+    public class AdoptersController : Controller
+    {
+        private readonly AppDbContext _context;
+
+        public AdoptersController(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        // LISTAR adoptantes
+        public IActionResult Index()
+        {
+            var adopters = _context.Adopters.ToList();
+            return View(adopters);
+        }
+
+        // FORMULARIO GET
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // GUARDAR adoptante
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Adopter adopter)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Adopters.Add(adopter);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(adopter);
+        }
+    }
+}

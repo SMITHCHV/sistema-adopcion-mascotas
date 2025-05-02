@@ -1,0 +1,30 @@
+@model IEnumerable<SistemaAdopcionMascotas.Models.Adopter>
+
+<h1>Lista de Adoptantes</h1>
+
+<p>
+    <a asp-action="Create">Registrar nuevo adoptante</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>@item.Nombre</td>
+            <td>@item.Email</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Ver</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

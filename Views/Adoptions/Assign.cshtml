@@ -1,0 +1,25 @@
+@{
+    ViewBag.Title = "Asignar Mascota a Adoptante";
+}
+
+<h1>Asignar Mascota a Adoptante</h1>
+
+<form asp-action="Assign" method="post">
+    <label>Mascota:</label>
+    <select name="petId" required>
+        @foreach (var pet in ViewBag.Pets)
+        {
+            <option value="@pet.Id">@pet.Nombre</option>
+        }
+    </select><br><br>
+
+    <label>Adoptante:</label>
+    <select name="adopterId" required>
+        @foreach (var adopter in ViewBag.Adopters)
+        {
+            <option value="@adopter.Id">@adopter.Nombre</option>
+        }
+    </select><br><br>
+
+    <button type="submit">Asignar</button>
+</form>
